@@ -46,13 +46,18 @@ Follow these steps to set up and run the Contact File Backend Service locally:
       3. **Configuration**
          - Create a `.env` file in the root directory.
          - Define environment variables as in `.env.example`.
-      
-      4. **Start the Server**
+
+      4. **Build the website**
+         ```bash
+         npm run build
+         ```
+         
+      5. **Start the Server**
          - Start the server using
            ```bash
-            npm run dev
+            npm start
            ```
          - The service will be running on `http://localhost:3000` by default.
         
 2. Backend Installation
-Follow the steps on https://github.com/CodeChefVIT/contactify-backend to set up the backend service.
+   - Follow the steps on https://github.com/CodeChefVIT/contactify-backend to set up the backend service.

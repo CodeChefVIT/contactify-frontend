@@ -18,6 +18,7 @@ interface sample {
   "Last Name": string;
   "Middle Name": string;
   "Phone Number(s)": string;
+  Gender: string;
   Prefix: string;
   Suffix: string;
 }
@@ -61,22 +62,39 @@ export default function SampleModal({
               {details["Suffix"]}
             </p>
             <br />
+            <Label className="text-sm font-bold">Gender: </Label>
+            <p className="text-lg">
+              {details["Gender"] === "M"
+                ? "Male"
+                : details["Gender"] === "F"
+                ? "Female"
+                : details["Gender"] === "O"
+                ? "Other"
+                : "Unknown"}
+            </p>
+            <br />
             <Label className="text-sm font-bold">Phone Number(s): </Label>
-            <div className="flex gap-2">
-              {details["Phone Number(s)"].split("/").map((number, key) => (
-                <p key={key} className="">
-                  {number}
-                </p>
-              ))}
+            <div className="flex flex-wrap gap-2">
+              {details["Phone Number(s)"]
+                .split("/")
+                .slice(0, 4)
+                .map((number, key) => (
+                  <p key={key} className="">
+                    {number}
+                  </p>
+                ))}
             </div>
             <br />
             <Label className="text-sm font-bold">Email(s): </Label>
             <div className="flex flex-col gap-1 leading-4">
-              {details["E-Mail"].split("/").map((email, key) => (
-                <p key={key} className="">
-                  {email}
-                </p>
-              ))}
+              {details["E-Mail"]
+                .split("/")
+                .slice(0, 4)
+                .map((email, key) => (
+                  <p key={key} className="">
+                    {email}
+                  </p>
+                ))}
             </div>
           </div>
         </div>

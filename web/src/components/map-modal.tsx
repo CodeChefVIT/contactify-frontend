@@ -15,6 +15,13 @@ import { toast } from "react-toastify";
 import { validate } from "@/lib/utils";
 import SampleModal from "./sample-modal";
 import { Input } from "@/components/ui/input";
+import { AlertTriangleIcon } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface sample {
   "E-Mail": string;
@@ -22,6 +29,7 @@ interface sample {
   "Last Name": string;
   "Middle Name": string;
   "Phone Number(s)": string;
+  Gender: string;
   Prefix: string;
   Suffix: string;
 }
@@ -34,6 +42,7 @@ export function MapModal({ headers, file }: { headers: string[]; file: File }) {
   const [removeLessThan10, setRemoveLessThan10] = useState<boolean>(true);
   // const [sanitizeNumber, setSanitizeNumber] = useState<boolean>(true);
   const [removeDuplicate, setRemoveDuplicate] = useState<boolean>(true);
+  const [autoIncrement, setAutoIncrement] = useState<boolean>(false);
   const [splitVCF, setSplitVCF] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
   const [details, setDetails] = useState<sample>();
@@ -79,6 +88,7 @@ export function MapModal({ headers, file }: { headers: string[]; file: File }) {
     formData.append("removeLessThan10", removeLessThan10.toString());
     // formData.append("sanitizeNumber", sanitizeNumber.toString());
     formData.append("removeDuplicate", removeDuplicate.toString());
+    formData.append("autoIncrement", autoIncrement.toString());
     formData.append("splitVCF", splitVCF.toString());
     formData.append("headersMap", JSON.stringify(data));
     formData.append("sample", sample.toString());
@@ -185,10 +195,24 @@ export function MapModal({ headers, file }: { headers: string[]; file: File }) {
                     <SelectItem value="Last Name">Last Name</SelectItem>
                     <SelectItem value="Phone Number">Phone Number</SelectItem>
                     <SelectItem value="E-Mail">E-Mail</SelectItem>
-                    {/* <SelectItem value="Gender">Gender</SelectItem> */}
+                    <SelectItem value="Gender">Gender</SelectItem>
                   </SelectContent>
                 </Select>
               </td>
+              {active[index] && !map[index] && (
+                <td className="relative">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger className="absolute top-1/2 -translate-y-1/2">
+                        <AlertTriangleIcon className="ml-5 text-red-500" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Please Map/Deselect this field</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </td>
+              )}
             </tr>
           ))}
           <tr>
@@ -273,6 +297,16 @@ export function MapModal({ headers, file }: { headers: string[]; file: File }) {
           />
           <Label htmlFor="m4" className="ml-4 text-base">
             Remove duplicate Phone Numbers.
+          </Label>
+        </div>
+        <div className="flex items-center">
+          <Checkbox
+            id="m6"
+            defaultChecked={false}
+            onCheckedChange={() => setAutoIncrement((prev) => !prev)}
+          />
+          <Label htmlFor="m6" className="ml-4 text-base">
+            Add auto incrementing number as suffix.
           </Label>
         </div>
         <div className="flex items-center">

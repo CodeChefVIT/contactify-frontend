@@ -1,6 +1,5 @@
 "use client";
 
-import { FileUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dispatch, SetStateAction, createRef, useState } from "react";
@@ -81,10 +80,10 @@ export function UploadModal({
 
   return (
     <div className="w-full pt-8 md:pt-12">
-      <p className="mx-auto w-3/4 text-center text-xl md:text-3xl font-medium text-white">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum,
-        nostrum!
+      <p className="mx-auto w-3/4 text-center text-xl font-medium text-white md:text-3xl">
+        Excels drop, contacts rise - effortless wizardry!
       </p>
+
       <div
         className={`modal relative mx-auto mt-10 flex w-3/4 flex-col items-center justify-center rounded-lg border-4 border-transparent bg-background bg-clip-padding px-4 py-10 ${
           isSubmitting ? "" : "cursor-pointer"
@@ -136,8 +135,9 @@ export function UploadModal({
           onChange={(e) => changeHandler(e)}
         />
       </div>
-      <p className="mx-auto w-3/4 text-center text-lg md:text-2xl font-medium text-white mt-16">
-        Excels drop, contacts rise - effortless wizardry!
+      <p className="mx-auto mt-16 w-3/4 text-center text-lg font-medium text-white md:text-2xl">
+        Instantly convert your spreadsheet of contacts into shareable contact
+        files with just a few clicks.
       </p>
     </div>
   );

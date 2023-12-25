@@ -1,71 +1,58 @@
-<p align="center"><a href="https://www.codechefvit.com" target="_blank"><img src="https://i.ibb.co/4J9LXxS/cclogo.png" width=160 title="CodeChef-VIT" alt="Codechef-VIT"></a>
-</p>
+# Contact File Backend Service
 
-<h2 align="center"> Project Title </h2>
-<br/>
+The Contact File Backend Service offers a seamless solution for users to upload contact information in various formats (CSV, XLSX, or XLS). Upon submission, the backend processes this data, extracting details such as names, phone numbers, emails, and genders. It compiles this information into a unified contact file (VCF file) compatible with Android and iOS devices, simplifying contact management.
 
-> Include project description here.
-
----
-
-[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](INSERT_LINK_FOR_DOCS_HERE) 
-  [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](INSERT_UI_LINK_HERE)
-[![GitHub Super-Linter](https://github.com/<OWNER>/<REPOSITORY>/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 ## Features
-- Insert list of features here
 
-## Screenshots
-<p align="center">
-<img src="https://i.ibb.co/VppxmWZ/cet.png" alt="Common-Entry-Test" width="400px"/>
-</p>
+### File Upload Prompt
+- Enables users to upload contact files in various formats (CSV, XLSX, XLS) effortlessly.
 
+### Automatic Header Extraction
+- Identifies and extracts headers from uploaded files to assist in contact data organization.
 
-## Dependencies
- - < dependency >
- - < dependency >
-## Instructions
+### Header Mapping Interface
+- Provides a user-friendly interface for mapping extracted headers to predefined contact fields like first name, middle name, last name, gender, phone number, and email for accurate data categorization.
 
-#### Directions to Install
-```sh
-$ git clone https://github.com/CodeChefVIT/<Project>
-$ cd <Project>
-$ npm install
-```
-#### Directions to Run
-```sh
-$ npm serve
-```
-## Contributors
-<table>
-	<tr align="center" style="font-weight:bold">
-		<td>
-		John Doe
-		<p align="center">
-			<img src = "https://i.ibb.co/4J9LXxS/cclogo.png" width="150" height="150" alt="Your Name Here (Insert Your Image Link In Src">
-		</p>
-			<p align="center">
-				<a href = "https://github.com/<GitHub-username>">
-					<img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/>
-				</a>
-			</p>
-		</td>
-				<td>
-		John Doe
-		<p align="center">
-			<img src = "https://i.ibb.co/4J9LXxS/cclogo.png" width="150" height="150" alt="Your Name Here (Insert Your Image Link In Src">
-		</p>
-			<p align="center">
-				<a href = "https://github.com/<GitHub-username>">
-					<img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/>
-				</a>
-			</p>
-		</td>
-	</tr>
-</table>
+### Custom Data Handling Options
+- **Row Filtering**: Allows skipping rows without a phone number or with insufficient phone number digits.
+- **Data Validation**: Offers options to set criteria for data inclusion, ensuring accuracy and completeness.
 
-## License
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+### Contact File Generation Options
+- **Unified VCF File**: Generates a single VCF file containing all organized contact information.
+- **Individual Contact Files**: Provides flexibility to receive contacts as separate files bundled together in a convenient zip format.
 
-<p align="center">
-	Made with :heart: by <a href="https://www.codechefvit.com" target="_blank">CodeChef-VIT</a>
-</p>
+## Installation Guide
+
+Follow these steps to set up and run the Contact File Backend Service locally:
+
+1. Local Installation
+
+      1. **Clone the Repository**
+         - Clone the repository.
+           ```bash
+           git clone https://github.com/CodeChefVIT/contactify-fe.git
+           ```
+         - Navigate to the cloned directory and run
+           ```bash
+           cd contactify-fe
+           ```
+      
+      2. **Install Dependencies**
+         - Install all required dependencies for running the server on local machine
+           ```bash
+           npm install
+           ```
+      
+      3. **Configuration**
+         - Create a `.env` file in the root directory.
+         - Define environment variables as in `.env.example`.
+      
+      4. **Start the Server**
+         - Start the server using
+           ```bash
+            npm run dev
+           ```
+         - The service will be running on `http://localhost:3000` by default.
+        
+2. Backend Installation
+Follow the steps on https://github.com/CodeChefVIT/contactifyBackend to set up the backend service.

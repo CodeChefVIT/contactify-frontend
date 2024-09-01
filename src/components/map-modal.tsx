@@ -158,7 +158,7 @@ export function MapModal({ headers, file }: { headers: string[]; file: File }) {
               <td>
                 <Checkbox
                   id={`${index}`}
-                  defaultChecked={true}
+                  defaultChecked={false}
                   onCheckedChange={() => {
                     const temp = active;
                     temp[index] = !temp[index];

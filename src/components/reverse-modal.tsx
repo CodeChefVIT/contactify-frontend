@@ -4,21 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dispatch, SetStateAction, createRef, useState } from "react";
 import { toast } from "react-toastify";
-import { getHeaders } from "@/api/api";
+import { getCSV } from "@/api/api";
 import icon from "@/assets/folder.svg";
 import Image, { StaticImageData } from "next/image";
 
-export function UploadModal({
-  file,
-  setFile,
+export function ReverseModal({
   setState,
-  setHeaders,
 }: {
-  file: File | undefined;
-  setFile: Dispatch<SetStateAction<File | undefined>>;
   setState: Dispatch<SetStateAction<"upload" | "map" | "download" | "reverse">>;
-  setHeaders: Dispatch<SetStateAction<string[]>>;
 }) {
+  const [file, setFile] = useState<File>();
   const fileRef = createRef<HTMLInputElement>();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -28,13 +23,7 @@ export function UploadModal({
     for (const i of e.target.files) {
       const type = i.name.split(".").pop();
 
-      if (
-        type !== "xlsx" &&
-        type !== "xls" &&
-        type !== "csv" &&
-        type !== "ods" &&
-        type !== "json"
-      ) {
+      if (type !== "vcf") {
         toast.error("Please upload appropriate file!");
         continue;
       } else setFile(e.target.files[0]);
@@ -51,13 +40,7 @@ export function UploadModal({
 
     for (const i of droppedFiles) {
       const type = i.name.split(".").pop();
-      if (
-        type !== "xlsx" &&
-        type !== "xls" &&
-        type !== "csv" &&
-        type !== "ods" &&
-        type !== "json"
-      ) {
+      if (type !== "vcf") {
         toast.error("Please upload appropriate file!");
         continue;
       } else setFile(droppedFiles[0]);
@@ -67,13 +50,18 @@ export function UploadModal({
   const handleFileUpload = async () => {
     if (!file) return;
     setIsSubmitting(true);
-    const res = await getHeaders(file);
+    const res = await getCSV(file);
     if (res.status === 200) {
-      toast.success("File uploaded successfully!");
-      setTimeout(() => {
-        setState("map");
-        setHeaders(res.data);
-      }, 2000);
+      toast.success("File converted successfully!");
+      const blob = new Blob([res.data], { type: "text/csv" });
+      const link = document.createElement("a");
+      link.download =
+        file.name.substring(0, file.name.lastIndexOf(".")) + ".csv";
+      link.href = URL.createObjectURL(blob);
+      document.body.appendChild(link);
+      link.click();
+      URL.revokeObjectURL(link.href);
+      document.body.removeChild(link);
     } else {
       toast.error(res.message);
     }
@@ -83,7 +71,7 @@ export function UploadModal({
   return (
     <div className="w-full pt-8 md:pt-12">
       <p className="mx-auto w-3/4 text-center text-xl font-medium text-white md:text-3xl">
-        Excels drop, contacts rise - effortless wizardry!
+        Reverse the magic, convert your VCF file to CSV!
       </p>
 
       <div
@@ -106,8 +94,7 @@ export function UploadModal({
           />
         </button>
         <p className="text-center leading-5 text-white">
-          Drag and drop your
-          <br /> .xlsx | .xls | .ods | .csv | .json file or browse it!
+          Drag and drop your VCF file or browse it!
         </p>
         {file && (
           <p className="py-4 text-sm text-muted-foreground">{file.name}</p>
@@ -131,27 +118,23 @@ export function UploadModal({
           id="file"
           name="file"
           type="file"
-          accept=".xlsx, .xls, .csv, .ods, .json"
+          accept=".vcf"
           className="hidden"
           disabled={isSubmitting}
           onChange={(e) => changeHandler(e)}
         />
       </div>
-      <p className="mx-auto mt-16 w-3/4 text-center text-lg font-medium text-white md:text-2xl">
-        Instantly convert your spreadsheet of contacts into shareable contact
-        files with just a few clicks.
-      </p>
-      <div className="mt-8 flex w-full items-center justify-center gap-4">
+      <div className="mt-16 flex w-full items-center justify-center gap-4">
         <p className="text-lg font-medium text-white md:text-2xl">
-          Want to reverse the process?
+          Want the original process?
         </p>
         <Button
           variant="ghost"
           onClick={() => {
-            setState("reverse");
+            setState("upload");
           }}
         >
-          VCF to Excel
+          To VCF!
         </Button>
       </div>
     </div>

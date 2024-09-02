@@ -24,9 +24,17 @@ import {
 export function Navbar() {
   return (
     <div className="flex h-[10vh] w-full items-center justify-between px-8 py-8">
-      <Link href="/">
-        <Image src="/logo.svg" alt="logo" width={150} height={150} />
-      </Link>
+      <Image
+        src="/logo.svg"
+        alt="logo"
+        width={150}
+        height={150}
+        className="cursor-pointer"
+        onClick={() => {
+          window.location.reload();
+        }}
+      />
+
       <Dialog>
         <DialogTrigger asChild>
           <Button size="icon" variant="ghost">
@@ -92,6 +100,15 @@ export function Navbar() {
                     rel="noopener noreferrer"
                   >
                     OpenDocument Spreadsheet(.ods)
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link
+                    href={`${process.env.NEXT_PUBLIC_API_URL}/template?filetype=json`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    JavaScript Object Notation(.json)
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>

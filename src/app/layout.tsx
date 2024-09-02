@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Head from "next/head";
@@ -14,6 +14,20 @@ export const metadata: Metadata = {
     { rel: "apple-touch-icon", sizes: "180x180", url: "/favicon.png" },
     { rel: "manifest", url: "/site.webmanifest" },
   ],
+  openGraph: {
+    type: "website",
+    url: "https://contactify.codechefvit.com",
+    title: "Contactify",
+    description: "Excel to vCard converter",
+    siteName: "Contactify",
+    images: [
+      {
+        url: "https://contactify.codechefvit.com/favicon.png",
+        type: "image/png",
+      },
+    ],
+  },
+  metadataBase: new URL("https://contactify.codechefvit.com"),
 };
 
 export default function RootLayout({
@@ -23,22 +37,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <Head>
-      <meta
-          property="og:title"
-          content="Contactify"
-        />
-        <meta
-          property="og:description"
-          content="Excel to vCard converter"
-        />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image" content="/favicon.png" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://contactify.codechefvit.com/" />
-        <meta property="og:site_name" content="Contactify" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
       <body className="min-h-screen bg-background antialiased">
         <ThemeProvider
           attribute="class"

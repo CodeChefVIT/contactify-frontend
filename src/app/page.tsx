@@ -3,6 +3,7 @@
 import { Footer } from "@/components/footer";
 import { MapModal } from "@/components/map-modal";
 import { Navbar } from "@/components/navbar";
+import { ReverseModal } from "@/components/reverse-modal";
 import SampleModal from "@/components/sample-modal";
 import { UploadModal } from "@/components/upload-modal";
 import { useState } from "react";
@@ -11,7 +12,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
   const [file, setFile] = useState<File>();
-  const [state, setState] = useState<"upload" | "map" | "download">("upload");
+  const [state, setState] = useState<"upload" | "map" | "download" | "reverse">(
+    "upload",
+  );
   const [headers, setHeaders] = useState<string[]>([]);
 
   return (
@@ -27,6 +30,7 @@ export default function Home() {
             setHeaders={setHeaders}
           />
         )}
+        {state === "reverse" && <ReverseModal setState={setState} />}
         {state === "map" && file && <MapModal file={file} headers={headers} />}
       </div>
       <Footer />

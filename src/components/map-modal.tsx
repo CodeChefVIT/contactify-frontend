@@ -50,7 +50,7 @@ export function MapModal({ headers, file }: { headers: string[]; file: File }) {
   const [suffix, setSuffix] = useState("");
 
   useEffect(() => {
-    setActive(headers.map(() => true));
+    setActive(headers.map(() => false));
   }, [headers]);
 
   const handleSubmit = async (sample: boolean) => {

@@ -101,7 +101,7 @@ export async function getVCF(formData: FormData) {
     message: "Something went wrong! Please try again later.",
   };
   try {
-    const {data}  = await axios.post(
+    const { data } = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/vcf`,
       formData,
       {
@@ -115,7 +115,7 @@ export async function getVCF(formData: FormData) {
     const file = formData.get("file") as File;
     if (formData.get("splitVCF") === "true") {
       // const arrayBuffer = await data.arrayBuffer();
-      const blob = new Blob([data], { type: 'application/zip' });
+      const blob = new Blob([data], { type: "application/zip" });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -141,5 +141,45 @@ export async function getVCF(formData: FormData) {
   } catch (err) {
     console.log(err);
     return 500;
+  }
+}
+
+export async function getCSV(file: File) {
+  let temp: response = {
+    data: null,
+    status: 500,
+    message: "Something went wrong! Please try again later.",
+  };
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+    const { data } = await axios.post<{ headers: string[] }>(
+      `${process.env.NEXT_PUBLIC_API_URL}/vcf2csv`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        maxBodyLength: Infinity,
+      },
+    );
+    temp = {
+      data: data,
+      status: 200,
+      message: "Success",
+    };
+  } catch (err) {
+    console.log(err);
+    if (axios.isAxiosError(err)) {
+      if (err.response?.status === 400) {
+        temp = {
+          data: null,
+          status: 400,
+          message: err.response.data ?? "Please check your file and try again.",
+        };
+      }
+    }
+  } finally {
+    return temp;
   }
 }

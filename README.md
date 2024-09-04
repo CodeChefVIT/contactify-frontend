@@ -38,7 +38,7 @@ Follow these steps to set up and run the Contact File Backend Service locally:
         ```
       - Navigate to the cloned directory and run
         ```bash
-        cd contactify-fe
+        cd contactify-fe/frontend
         ```
 
    2. **Install Dependencies**

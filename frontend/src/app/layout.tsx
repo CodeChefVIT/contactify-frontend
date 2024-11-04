@@ -54,6 +54,9 @@ export const metadata: Metadata = {
     images: "https://contactify.codechefvit.com/favicon-black.svg",
   },
   metadataBase: new URL("https://contactify.codechefvit.com"),
+  other: {
+    "google-site-verification": "SjVFuH8GzIj3Ooh2JcWufBoSMWTzo77TACHomonCKVs",
+  },
 };
 
 export default function RootLayout({
